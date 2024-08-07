@@ -33,4 +33,9 @@ public class HomeController {
 
     }
 
+    @GetMapping("/TestGit")
+    public String TestGit(){
+        return UUID.randomUUID().toString();
+    }
+
 }
