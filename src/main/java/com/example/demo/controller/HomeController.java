@@ -30,16 +30,8 @@ public class HomeController {
     @ResponseBody
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
+
     }
-
-
-    @GetMapping("/getUserByIdByRedisCache/{id}")
-    @MethodExporter
-    @ResponseBody
-    public User getUserByIdByRedisCache(@PathVariable Long id) {
-        return userService.getUserByIdByRedisCache(id);
-    }
-
 
     @GetMapping("/TestGit")
     public String TestGit(){

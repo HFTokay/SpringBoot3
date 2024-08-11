@@ -55,6 +55,9 @@ public class User implements Serializable {
         this.remark = remark;
     }
 
+    public User() {
+    }
+
     public User(Long id, String username, String iphone, Integer sex, String remark) {
         this.id = id;
         this.username = username;
@@ -65,12 +68,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", iphone='" + iphone + '\'' +
-                ", sex=" + sex +
-                ", remark='" + remark + '\'' +
-                '}';
+        return STR."User{id=\{id}, username='\{username}\{'\''}, iphone='\{iphone}\{'\''}, sex=\{sex}, remark='\{remark}\{'\''}\{'}'}";
     }
 }
