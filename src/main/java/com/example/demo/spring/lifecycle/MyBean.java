@@ -1,11 +1,12 @@
-package com.example.demo.spring;
+package com.example.demo.spring.lifecycle;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Component;
  */
 @Component("myBean")
 public class MyBean implements InitializingBean,
-                               BeanFactoryAware, BeanNameAware, ApplicationContextAware,
-                               BeanPostProcessor,
-                               DisposableBean
+        BeanFactoryAware, BeanNameAware, ApplicationContextAware,
+        BeanPostProcessor,
+        DisposableBean
 
 {
 
@@ -24,9 +25,15 @@ public class MyBean implements InitializingBean,
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         System.out.println("======================"+"setName:"+name);
         this.name = name;
+    }
+
+    @Autowired
+    public void autowired(@Value("${JAVA_HOME}") String home){
+        System.out.println("调用了依赖注入 MyBean autowired(String home):" + home);
     }
 
     public MyBean() {
