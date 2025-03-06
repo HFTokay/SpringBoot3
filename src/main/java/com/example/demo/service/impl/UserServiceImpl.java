@@ -21,6 +21,11 @@ public class UserServiceImpl  implements UserService {
         return userMapper.getUserById(id);
     }
 
+    @Override
+    public List<User> getUserList() {
+        return userMapper.getUserList();
+    }
+
 
     /**
      * 配合redis 查询先走redis  再看mysql
@@ -31,5 +36,10 @@ public class UserServiceImpl  implements UserService {
     @MyRedisCache(keyPrefix = "user",matchValue = "#id")
     public User getUserByIdByRedisCache(Long id) {
          return userMapper.getUserById(id);
+    }
+
+    @Override
+    public Integer insertUser(User user) {
+        return userMapper.insertUser(user);
     }
 }

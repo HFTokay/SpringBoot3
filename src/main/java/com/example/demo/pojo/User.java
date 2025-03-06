@@ -68,6 +68,12 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return STR."User{id=\{id}, username='\{username}\{'\''}, iphone='\{iphone}\{'\''}, sex=\{sex}, remark='\{remark}\{'\''}\{'}'}";
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", iphone='" + iphone + '\'' +
+                ", sex=" + sex +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }
