@@ -24,6 +24,12 @@ public class LightingSystemController {
         );
     }
 
+
+    public void shutdownSystem() {
+        gateways.forEach(gateway -> gateway.getExecutor().shutdown());
+    }
+
+
     public LightingSystemController() {
     }
 
