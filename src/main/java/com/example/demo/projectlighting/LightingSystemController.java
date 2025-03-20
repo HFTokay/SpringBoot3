@@ -16,8 +16,8 @@ public class LightingSystemController {
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
-                            ;
                             gateway.submitControlTask(group);
+                            gateway.startLightIntensityMonitoring(group);
                         }
 
                 )

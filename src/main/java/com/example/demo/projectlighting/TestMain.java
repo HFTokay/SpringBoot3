@@ -17,8 +17,14 @@ public class TestMain {
         // 2. 创建灯组并绑定策略（参考‌:ml-citation{ref="3,4" data="citationList"}）
         LampGroup groupA = new LampGroup();
         groupA.setGroupId("GROUP-A");
-        groupA.setLamps(initLampA());
-        groupA.setStrategy(new ControlStrategyRuleBrightDark("10"));
+        groupA.setLamps(initGroupLamp("GROUP-A_SN",10));
+        List<ControlStrategy> strategyListA = new ArrayList<ControlStrategy>();
+        strategyListA.add(new ControlStrategyRuleBrightDark("10"));
+        strategyListA.add(new ControlStrategyTime(
+                LocalTime.of(0,0,0),
+                LocalTime.of(23,0,0)));
+        strategyListA.add(new ControlStrategyLightIntensity(4.0,8));
+        groupA.setStrategyList(strategyListA);
         groupA.initGroup();
 
 
@@ -28,10 +34,15 @@ public class TestMain {
 
         LampGroup groupB = new LampGroup();
         groupB.setGroupId("GROUP-B");
-        groupB.setLamps(initLampB());
-        groupB.setStrategy(new ControlStrategyRuleBrightDark("110"));
+        groupB.setLamps(initGroupLamp("GROUP-B_SN",8));
+        List<ControlStrategy> strategyListB = new ArrayList<ControlStrategy>();
+        strategyListB.add(new ControlStrategyRuleBrightDark("110"));
+        strategyListB.add(new ControlStrategyTime(
+                LocalTime.of(0,0,0),
+                LocalTime.of(23,0,0)));
+        strategyListB.add(new ControlStrategyLightIntensity(10,12));
+        groupB.setStrategyList(strategyListB);
         groupB.initGroup();
-
 
         // 3. 独立注册灯组到网关（关键修改点）‌
         List<LampGroup> gateway1Groups = new ArrayList<>();
@@ -52,49 +63,15 @@ public class TestMain {
         ThreadPoolFactory.logPoolStatus("GW-001");
         ThreadPoolFactory.logPoolStatus("GW-002");
 
-//        while (true){
-//            Thread.sleep(500);
-//            ThreadPoolFactory.logPoolStatus("GW-001");
-//            ThreadPoolFactory.logPoolStatus("GW-002");
-//        }
-
-
-//        List lampGroups = new ArrayList<LampGroup>();
-//        gateway1.setManagedGroups(lampGroups);
-//        gateway2.setManagedGroups(lampGroups);
-//
-//        // 3. 注册灯组到网关
-//        gateway1.getManagedGroups().add(groupA);
-//        gateway2.getManagedGroups().add(groupB);
-//
-//        List<GatewayController> allList = new ArrayList<GatewayController>();
-//        allList.add(gateway1);
-//        allList.add(gateway2);
-//
-//        // 4. 启动系统
-//        new LightingSystemController(allList).startSystem();
-
     }
 
 
-    public static List initLampA() {
+    public static List<Lamp> initGroupLamp(String lamPrefix,int lamSum) {
 
         List<Lamp> list = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= lamSum; i++) {
             Lamp lamp = new Lamp();
-            lamp.setSn("lamA_sn" + i);
-            list.add(lamp);
-        }
-        return list;
-
-    }
-
-
-    private static List<Lamp> initLampB() {
-        List<Lamp> list = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            Lamp lamp = new Lamp();
-            lamp.setSn("lamB_sn" + i);
+            lamp.setSn(lamPrefix + i);
             list.add(lamp);
         }
         return list;

@@ -61,7 +61,7 @@ public class HomeController {
             User user = new User();
             user.setUsername(GeneratorUtil.chineseNameGenerator());
             user.setIphone(GeneratorUtil.phoneNumberGenerator());
-            user.setSex(i/2 == 0 ? 1:0);
+            user.setSex(i%2 == 0 ? 1:0);
             user.setRemark("remark-"+i);
             userService.insertUser(user);
             sum = i + 1;

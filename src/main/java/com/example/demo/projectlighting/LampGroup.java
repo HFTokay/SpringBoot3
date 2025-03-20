@@ -1,23 +1,27 @@
 package com.example.demo.projectlighting;
 
 import com.rabbitmq.client.BlockedCallback;
+import com.zaxxer.hikari.util.IsolationLevel;
 import lombok.Synchronized;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class LampGroup {
 
     private String groupId;
     private List<Lamp> lamps;        // 按顺序存储的灯列表
-    private ControlStrategy strategy;// 当前生效策略
+    private List<ControlStrategy> strategyList;// 当前生效策略
     private transient ThreadPoolExecutor executor;
 
     // 初始化组内灯状态（默认全暗）
     public void initGroup() {
         lamps.forEach(lamp -> lamp.setStatus(0));
+
     }
+
 
 
     // 根据灯顺序生成指令（参考‌:ml-citation{ref="3,5"}）
@@ -75,12 +79,12 @@ public class LampGroup {
         this.lamps = lamps;
     }
 
-    public ControlStrategy getStrategy() {
-        return strategy;
+    public List<ControlStrategy> getStrategyList() {
+        return strategyList;
     }
 
-    public void setStrategy(ControlStrategy strategy) {
-        this.strategy = strategy;
+    public void setStrategyList(List<ControlStrategy> strategyList) {
+        this.strategyList = strategyList;
     }
 
     public ThreadPoolExecutor getExecutor() {
