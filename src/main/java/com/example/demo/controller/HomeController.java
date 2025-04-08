@@ -8,8 +8,11 @@ import com.example.demo.service.UserService;
 import com.example.demo.util.annotation.MethodExporter;
 import com.example.demo.util.annotation.RedisLimitRequest;
 import com.example.demo.util.redislock.RedisCAPLock;
+import com.example.demo.util.springaop.DefaultSearchService;
+import com.example.demo.util.springaop.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +36,9 @@ public class HomeController {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private DefaultSearchService defaultSearchService;
 
     @GetMapping("/page")
     @ResponseBody
@@ -124,6 +130,14 @@ public class HomeController {
         // 转换为字符串
         String formattedDate = sdf.format(new Date(timestamp));
         return formattedDate + "CAP_STOCK:" + stock;
+    }
+
+
+    /** package com.example.demo.util.springaop  测试aop实现 */
+    @GetMapping("/testSearchLogAdvice")
+    public String testSearchLogAdvice() {
+        defaultSearchService.search("search cgb1905");
+        return System.currentTimeMillis() + "";
     }
 
 
